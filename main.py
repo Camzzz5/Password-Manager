@@ -49,6 +49,23 @@ def save():
         finally:
             inp1.delete(first=0, last=END)
             inp2.delete(first=0, last=END)
+
+
+def find_password():
+    try:
+        with open("data.json", "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No data file found")
+    else:
+        for k, v in data.items():
+            if k == inp1.get():
+                email = v["email"]
+                password = v["password"]
+                messagebox.showinfo(title=k, message=f"Email: {email}\n Password: {password}")
+                break
+            else:
+                messagebox.showinfo(title="Not found", message="No details for the website exist")
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password manager")
@@ -58,7 +75,7 @@ logo_image = PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image = logo_image)
 canvas.grid(row=0, column=1)
 
-inp1 = Entry(width=35)
+inp1 = Entry(width=21)
 inp1.grid(column=1, row=1, columnspan=2)
 inp3 = Entry(width=35)
 inp3.grid(column=1, row=2, columnspan=2)
@@ -76,8 +93,10 @@ LABEL3.grid(column=0, row=3)
 button1 = Button(text="Add", command=save)
 button1.grid(column=1, row=4, columnspan=2)
 button1.config(width=35)
-button2 = Button(text="Generate Password", command= generate_password)
+button2 = Button(text="Generate Password", command=generate_password)
 button2.grid(column=2, row=3)
+button3 = Button(text="Search", command=find_password)
+button3.grid(column=2, row=1)
 
 
 
