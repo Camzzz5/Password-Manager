@@ -58,14 +58,15 @@ def find_password():
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message="No data file found")
     else:
+        a = False
         for k, v in data.items():
             if k == inp1.get():
                 email = v["email"]
                 password = v["password"]
                 messagebox.showinfo(title=k, message=f"Email: {email}\n Password: {password}")
-                break
-            else:
-                messagebox.showinfo(title="Not found", message="No details for the website exist")
+                a = True
+        if not a:
+            messagebox.showinfo(title="Not found", message="No details for the website exist")
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password manager")
