@@ -45,7 +45,7 @@ def save():
         else:
             data.update(new_data)
             with open("data.json", "w") as file:
-                json.dump(new_data, file, indent=4)
+                json.dump(data, file, indent=4)
         finally:
             inp1.delete(first=0, last=END)
             inp2.delete(first=0, last=END)
